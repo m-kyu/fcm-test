@@ -20,7 +20,7 @@ export default function Home() {
         body:'fcm.......',
         icon:'https://d2v80xjmx68n4w.cloudfront.net/gigs/rate/G14y51681184466.JPG',
         image: 'https://blog.kakaocdn.net/dn/cxXz0g/btrpdnEFZxC/kLMtiZk07PMa0rmvLGF1g0/img.jpg',
-        click_action:'https:naver.com',
+        click_action:'https://www.naver.com',
       },
       token
     };
