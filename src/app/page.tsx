@@ -1,95 +1,60 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { getClientToken } from "@/lib/firebase-sdk";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+
+  const [show,setShow] = useState(false);
+  const [notification, setNotification] = useState({title:"",body:""})
+  console.log(show, notification);
+
+  
+  async function pushTest(){
+    const token = await getClientToken();
+    console.log(token)
+
+    const message = {
+      data: {
+        title:'fcm test',
+        body:'fcm.......',
+        icon:'https://d2v80xjmx68n4w.cloudfront.net/gigs/rate/G14y51681184466.JPG',
+        image: 'https://blog.kakaocdn.net/dn/cxXz0g/btrpdnEFZxC/kLMtiZk07PMa0rmvLGF1g0/img.jpg',
+        click_action:'https:naver.com',
+      },
+      token
+    };
+
+    axios({
+      method: 'POST',
+      url:'/api',
+      data: { message },
+    });
+  };
+    
+
+  const clientPermission = () => {
+    Notification.requestPermission().then(permission => {
+      if (permission !== 'granted') {
+        alert('푸시 거부됨');
+      } else {
+        alert('푸시 승인됨');
+      }
+    });
+  };
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <main>
+      npm install firebase <br />
+      npm install firebase-admin<br />
+      https://velog.io/@hisung-ah/Next.js%EC%97%90%EC%84%9C-PWA-%EA%B8%B0%EB%B0%98-FCM-%ED%91%B8%EC%8B%9C-%EC%95%8C%EB%A6%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0<br/><br/>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      fcm guid<br/>
+      https://firebase.google.com/docs/cloud-messaging/js/first-message?hl=ko&_gl=1*4tws1a*_up*MQ..*_ga*ODE1OTM2ODg0LjE3MDk2Mjk3NjQ.*_ga_CW55HF8NVT*MTcwOTYyOTc2My4xLjAuMTcwOTYyOTg3OS4wLjAuMA..
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <button onClick={clientPermission}>알림허용</button>
+      <button onClick={pushTest}>푸시알림</button>
     </main>
   );
 }
