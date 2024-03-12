@@ -1,18 +1,15 @@
 "use client";
-import { getClientToken } from "@/lib/firebase-sdk";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { getClientToken,messaging,app } from "@/lib/firebase-sdk";
 
 export default function Home() {
-
-  const [show,setShow] = useState(false);
-  const [notification, setNotification] = useState({title:"",body:""})
-  console.log(show, notification);
-
   
+    
   async function pushTest(){
     const token = await getClientToken();
-    console.log(token)
+    console.log(token);
 
     const message = {
       data: {
@@ -31,17 +28,23 @@ export default function Home() {
       data: { message },
     });
   };
-    
+
 
   const clientPermission = () => {
-    Notification.requestPermission().then(permission => {
+    Notification.requestPermission().then(async (permission) => {
       if (permission !== 'granted') {
         alert('푸시 거부됨');
       } else {
-        alert('푸시 승인됨');
+       
       }
     });
   };
+
+  useEffect(()=>{
+    if('navigator' in window){
+      navigator.serviceWorker.register('/firebase-messaging-sw.js',{scope:'/firebase-cloud-messaging-push-scope'})
+    }
+  },[])
 
 
   return (

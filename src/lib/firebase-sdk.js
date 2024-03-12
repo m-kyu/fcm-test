@@ -12,14 +12,13 @@ const firebaseConfig = {
   measurementId: "G-69K0MPF4FY"
 };
 
-const app = initializeApp(firebaseConfig);
-let messaging;
+export const app = initializeApp(firebaseConfig);
+export let messaging;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
-  messaging = getMessaging();
+  messaging = getMessaging(app);
 }
 
-export const getClientToken = async (setTokenFound) => {
-  let currentToken = await getToken(messaging,{vapidKey:'BFZnAUM8BpGuwmjkzT6-SrpIwds9aw8J8nXOMv-BvQmhVd-4Ir3pP8qVJw4JlYqbtDxhujosRgmN-N6ZD9uDvfo'});
+export const getClientToken = async () => {
+  let currentToken = await getToken(messaging,{vapidKey:process.env.NEXT_PUBLIC_VAPIDKEY});
   return currentToken;
 }
-
