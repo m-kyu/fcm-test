@@ -35,7 +35,7 @@ export default function Home() {
       if (permission !== 'granted') {
         alert('푸시 거부됨');
       } else {
-       
+        alert('승인됨');
       }
     });
   };
