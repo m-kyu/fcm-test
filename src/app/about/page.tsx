@@ -1,4 +1,5 @@
 
+"use client";
 import Footer from "@/comp/Footer";
 import Header from "@/comp/Header";
 import axios from "axios";
