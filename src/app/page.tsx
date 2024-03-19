@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getClientToken,messaging,app } from "@/lib/firebase-sdk";
+import Header from "@/comp/Header";
+import Footer from "@/comp/Footer";
 
 export default function Home() {
   
@@ -48,16 +50,27 @@ export default function Home() {
 
 
   return (
-    <main>
-      npm install firebase <br />
-      npm install firebase-admin<br />
-      https://velog.io/@hisung-ah/Next.js%EC%97%90%EC%84%9C-PWA-%EA%B8%B0%EB%B0%98-FCM-%ED%91%B8%EC%8B%9C-%EC%95%8C%EB%A6%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0<br/><br/>
+    <>
+      <Header/>
+      <br></br><main>
+        npm install firebase <br />
+        npm install firebase-admin<br />
+        https://velog.io/@hisung-ah/Next.js%EC%97%90%EC%84%9C-PWA-%EA%B8%B0%EB%B0%98-FCM-%ED%91%B8%EC%8B%9C-%EC%95%8C%EB%A6%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0<br/><br/>
 
-      fcm guid<br/>
-      https://firebase.google.com/docs/cloud-messaging/js/first-message?hl=ko&_gl=1*4tws1a*_up*MQ..*_ga*ODE1OTM2ODg0LjE3MDk2Mjk3NjQ.*_ga_CW55HF8NVT*MTcwOTYyOTc2My4xLjAuMTcwOTYyOTg3OS4wLjAuMA..
+        fcm guid<br/>
+        https://firebase.google.com/docs/cloud-messaging/js/first-message?hl=ko&_gl=1*4tws1a*_up*MQ..*_ga*ODE1OTM2ODg0LjE3MDk2Mjk3NjQ.*_ga_CW55HF8NVT*MTcwOTYyOTc2My4xLjAuMTcwOTYyOTg3OS4wLjAuMA..
 
-      <button onClick={clientPermission}>알림허용</button>
-      <button onClick={pushTest}>푸시알림</button>
-    </main>
+        <button onClick={clientPermission}>알림허용</button>
+        <button onClick={pushTest}>푸시알림</button>
+      </main>
+
+
+
+
+
+
+      
+      <Footer/>
+    </>
   );
 }
